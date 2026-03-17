@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiAgent - Run Your Operations So You Can Sell</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0052CC;
+            --primary-dark: #003A99;
+            --primary-light: #E8F0FE;
+            --accent: #1F2937;
+            --text-dark: #111827;
+            --text-light: #6B7280;
+            --border-light: #E5E7EB;
+            --success: #10B981;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--white);
+        }
+
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-light);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            background: var(--primary-light);
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary-light) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .hero-highlight {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 82, 204, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--primary);
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            transform: translateY(-4px);
+        }
+
+        .problem {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pain-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .pain-point {
+            background: var(--primary-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .pain-point h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .pain-point p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .solution {
+            padding: 5rem 2rem;
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .solution .section-title {
+            color: var(--white);
+        }
+
+        .solution .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .solution-card h3 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solution-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .check-icon {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .packages {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .package-card {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 82, 204, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .package-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, var(--white) 0%, var(--primary-light) 100%);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .package-price-desc {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.75rem 0;
+            color: var(--text-dark);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li:before {
+            content: "✓";
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .package-button {
+            width: 100%;
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .package-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .case-study {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e0eaf5 100%);
+        }
+
+        .case-study-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 82, 204, 0.08);
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study-showcase.case-study-reverse {
+            direction: rtl;
+        }
+
+        .case-study-showcase.case-study-reverse > * {
+            direction: ltr;
+        }
+
+        .case-study-left,
+        .case-study-right {
+            padding: 1rem;
+        }
+
+        .case-study-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .case-study-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0052CC 0%, #1F2937 100%);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.2);
+        }
+
+        .case-study-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .case-study-location {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .case-study-problem,
+        .case-study-solution {
+            margin-bottom: 1.5rem;
+        }
+
+        .case-study-problem h4,
+        .case-study-solution h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .case-study-problem p,
+        .case-study-solution p {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .case-study-solution ul {
+            color: var(--text-dark);
+        }
+
+        .case-study-solution li {
+            margin-bottom: 0.5rem;
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+
+        .case-study-testimonial {
+            background: var(--primary-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin-top: 2rem;
+        }
+
+        .case-study-results {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            padding: 2.5rem;
+            color: var(--white);
+        }
+
+        .result-item {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .result-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.25rem;
+        }
+
+        .result-period {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .result-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+            margin: 1rem 0;
+        }
+
+        #about {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--primary-light);
+            padding: 3rem;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary);
+        }
+
+        .about-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .about-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 12px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 8px 16px rgba(0, 82, 204, 0.3);
+        }
+
+        .about-info h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-info p {
+            color: var(--text-dark);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .credentials-grid {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .credential-item p:first-child {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .credential-item p:last-child {
+            color: var(--text-dark);
+        }
+
+        .mission-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+
+        .mission-box p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .linkedin-button {
+            display: inline-block;
+            margin-top: 1rem;
+            background: #0A66C2;
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .linkedin-button:hover {
+            background: #0952A6;
+            transform: translateY(-2px);
+        }
+
+        .final-cta {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: var(--accent);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-contact a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .footer-founder {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .package-card.featured {
+                transform: scale(1);
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .final-cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .case-study-showcase,
+            .case-study-showcase.case-study-reverse {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                padding: 2rem;
+            }
+
+            .case-study-showcase.case-study-reverse > * {
+                direction: ltr;
+            }
+
+            .about-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .case-study {
+                padding: 3rem 1rem;
+            }
+
+            .case-study-results {
+                padding: 2rem;
+            }
+
+            .result-number {
+                font-size: 2rem;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .pain-point, .solution-card, .package-card {
+            animation: slideIn 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .pain-point:nth-child(1) { animation-delay: 0.1s; }
+        .pain-point:nth-child(2) { animation-delay: 0.2s; }
+        .pain-point:nth-child(3) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            🇺🇸 Serving All 50 States | Founded by Ismail Asim
+        </div>
+        <div class="header-container">
+            <div class="logo">OptiAgent</div>
+            <nav class="nav-links">
+                <a href="#packages">Packages</a>
+                <a href="#case-study">Case Studies</a>
+                <a href="#about">About</a>
+                <a href="#contact" class="cta-button">Schedule Call</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">🇺🇸 Serving Real Estate Agents Across All 50 States</div>
+            <h1>Increase Qualified Appointments <span class="hero-highlight">Through Automated Lead Systems</span></h1>
+            <p>We help real estate agents and agencies acquire more clients and automate their entire operation through structured lead capture and follow-up systems. You focus on closing deals. We handle everything else.</p>
+            <div class="hero-cta">
+                <a href="tel:7328224347" class="btn-primary">Call Now: (732) 822-4347</a>
+                <a href="#packages" class="btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="section-container">
+            <h2 class="section-title">The Real Estate Agent's Challenge</h2>
+            <p class="section-subtitle">You have leads. You have the skills to close. But you're losing opportunities because of systems, not ability.</p>
+            <div class="pain-points">
+                <div class="pain-point">
+                    <h3>Lost Leads</h3>
+                    <p>50+ leads per month but only 30-40% get followed up on. The rest disappear. That's thousands in lost commissions.</p>
+                </div>
+                <div class="pain-point">
+                    <h3>No Qualified Appointments</h3>
+                    <p>Leads come in but don't convert to appointments. You're chasing instead of closing.</p>
+                </div>
+                <div class="pain-point">
+                    <h3>Operational Chaos</h3>
+                    <p>30+ hours per week on admin, follow-up, scheduling. You became a secretary instead of a salesman.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="section-container">
+            <h2 class="section-title">Our System: Lead Acquisition + Automation</h2>
+            <p class="section-subtitle">A complete framework for capturing, nurturing, and converting qualified leads into appointments and closed deals.</p>
+            <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem; border-radius: 12px; margin-bottom: 3rem; border-left: 4px solid var(--success);">
+                <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.05rem; line-height: 1.8;">
+                    <strong>How It Works:</strong> We build a structured lead capture funnel, automate follow-up sequences (SMS, email, reminders), and ensure every lead gets qualified and booked into your calendar. No more leads falling through the cracks.
+                </p>
+            </div>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> Structured Lead Capture</h3>
+                    <p>Landing pages, forms, and systems that capture qualified leads automatically from your target market.</p>
+                </div>
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> Intelligent Follow-Up</h3>
+                    <p>Automated SMS, email, and call sequences that nurture leads 24/7 while you focus on closing deals.</p>
+                </div>
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> Appointment Booking</h3>
+                    <p>Calendar management, confirmations, and reminders. Every qualified lead gets scheduled.</p>
+                </div>
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> Transaction Management</h3>
+                    <p>From lead to close - we handle paperwork, checklists, deadlines, and buyer/seller coordination.</p>
+                </div>
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> CRM & Data Intelligence</h3>
+                    <p>All leads organized, tracked, and analyzed. You always know where prospects stand in the pipeline.</p>
+                </div>
+                <div class="solution-card">
+                    <h3><span class="check-icon">✓</span> Marketing Automation</h3>
+                    <p>Social media, email campaigns, and marketing materials that keep your business visible and growing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="packages" id="packages">
+        <div class="section-container">
+            <h2 class="section-title">Lead Acquisition & Automation Packages</h2>
+            <p class="section-subtitle">From qualified lead capture to closed deals. Choose the level of support you need.</p>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-name">Lead Capture Starter</div>
+                    <div class="package-price">$2,500</div>
+                    <div class="package-price-desc">/month</div>
+                    <ul class="package-features">
+                        <li>Lead capture system setup</li>
+                        <li>Automated follow-up (email, SMS)</li>
+                        <li>CRM management</li>
+                        <li>Weekly performance reports</li>
+                    </ul>
+                    <button class="package-button" onclick="document.location='tel:7328224347'">Schedule Call</button>
+                </div>
+
+                <div class="package-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="package-name">Complete Acquisition System</div>
+                    <div class="package-price">$4,000</div>
+                    <div class="package-price-desc">/month</div>
+                    <ul class="package-features">
+                        <li>Everything in Starter +</li>
+                        <li>Appointment booking & scheduling</li>
+                        <li>Transaction management</li>
+                        <li>Lead qualification & nurturing</li>
+                        <li>Full operational support</li>
+                    </ul>
+                    <button class="package-button" onclick="document.location='tel:7328224347'">Schedule Call</button>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-name">Agency Growth System</div>
+                    <div class="package-price">$5,500</div>
+                    <div class="package-price-desc">/month</div>
+                    <ul class="package-features">
+                        <li>Everything in Complete +</li>
+                        <li>Marketing automation & campaigns</li>
+                        <li>Social media management</li>
+                        <li>Lead generation strategy</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <button class="package-button" onclick="document.location='tel:7328224347'">Schedule Call</button>
+                </div>
+
+                <div class="package-card">
+                    <div class="package-name">Enterprise Solution</div>
+                    <div class="package-price">$7,000+</div>
+                    <div class="package-price-desc">/month</div>
+                    <ul class="package-features">
+                        <li>Everything in Agency Growth +</li>
+                        <li>Advanced analytics & reporting</li>
+                        <li>Custom automation workflows</li>
+                        <li>Multi-agent coordination</li>
+                        <li>Strategic consulting</li>
+                    </ul>
+                    <button class="package-button" onclick="document.location='tel:7328224347'">Schedule Call</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-study" id="case-study">
+        <div class="section-container">
+            <h2 class="section-title">Real Results from Real Agents</h2>
+            <p class="section-subtitle">See what happens when an agent stops doing admin and starts selling</p>
+        </div>
+
+        <div style="max-width: 1200px; margin: 3rem auto; padding: 0 2rem;">
+            <div class="case-study-showcase">
+                <div class="case-study-left">
+                    <div class="case-study-header">
+                        <div class="case-study-avatar">MR</div>
+                        <div>
+                            <h3 class="case-study-name">Mike Rodriguez</h3>
+                            <p class="case-study-location">🏢 Austin, TX | Residential Real Estate | Solo Agent</p>
+                        </div>
+                    </div>
+                    <div class="case-study-problem">
+                        <h4>The Problem</h4>
+                        <p>30+ hours per week on admin work. Following up with only 40% of leads. Leaving money on the table.</p>
+                    </div>
+                    <div class="case-study-solution">
+                        <h4>The Solution</h4>
+                        <p><strong>Package:</strong> Premium + Marketing ($5,500/month)</p>
+                        <ul>
+                            <li>Lead follow-up (email, SMS, calls)</li>
+                            <li>Showing coordination</li>
+                            <li>Transaction management</li>
+                            <li>Social media + marketing</li>
+                        </ul>
+                    </div>
+                    <div class="case-study-testimonial">
+                        <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic; color: var(--primary); margin-bottom: 1rem;">
+                            "This changed my entire business. I went from being an admin person who sells to actually being a salesman. Before: 40% lead follow-up rate. Now: 95%. The deals are coming in. Best $5,500 I spend every month."
+                        </p>
+                        <p style="font-weight: 600; color: var(--text-dark);">— Mike Rodriguez</p>
+                    </div>
+                </div>
+                <div class="case-study-right">
+                    <div class="case-study-results">
+                        <div class="result-item">
+                            <div class="result-number">8</div>
+                            <div class="result-label">Additional Deals Closed</div>
+                            <div class="result-period">in first 3 months</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">$144K</div>
+                            <div class="result-label">Additional Commission</div>
+                            <div class="result-period">earned from new deals</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">25 hrs</div>
+                            <div class="result-label">Freed Per Week</div>
+                            <div class="result-period">to focus on selling</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">95%</div>
+                            <div class="result-label">Lead Follow-Up Rate</div>
+                            <div class="result-period">vs 40% before</div>
+                        </div>
+                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(255, 255, 255, 0.2);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem;">8.7x</div>
+                                <div style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">ROI on investment<br><span style="font-size: 0.85rem;">$144k earned for $16.5k invested</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+            <div class="case-study-showcase case-study-reverse">
+                <div class="case-study-left">
+                    <div class="case-study-header">
+                        <div class="case-study-avatar" style="background: linear-gradient(135deg, #059669 0%, #10B981 100%);">SA</div>
+                        <div>
+                            <h3 class="case-study-name">Sarah Anderson</h3>
+                            <p class="case-study-location">🏢 Miami, FL | Luxury Real Estate | Team of 2</p>
+                        </div>
+                    </div>
+                    <div class="case-study-problem">
+                        <h4>The Problem</h4>
+                        <p>Managing a small team while handling operations. Couldn't afford in-house staff. Losing deals due to follow-up gaps.</p>
+                    </div>
+                    <div class="case-study-solution">
+                        <h4>The Solution</h4>
+                        <p><strong>Package:</strong> Full Operations ($4,000/month)</p>
+                        <ul>
+                            <li>Lead follow-up for entire team</li>
+                            <li>Transaction coordination</li>
+                            <li>Calendar & showing management</li>
+                            <li>CRM maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="case-study-testimonial">
+                        <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic; color: var(--primary); margin-bottom: 1rem;">
+                            "We scaled our team without scaling our overhead. OptiAgent handles everything operationally. My team closes 30% more deals now because they're not buried in admin work."
+                        </p>
+                        <p style="font-weight: 600; color: var(--text-dark);">— Sarah Anderson</p>
+                    </div>
+                </div>
+                <div class="case-study-right">
+                    <div class="case-study-results">
+                        <div class="result-item">
+                            <div class="result-number">12</div>
+                            <div class="result-label">New Deals Closed</div>
+                            <div class="result-period">in 90 days</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">$276K</div>
+                            <div class="result-label">Additional Commission</div>
+                            <div class="result-period">from team performance</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">30%</div>
+                            <div class="result-label">Increase in Deals</div>
+                            <div class="result-period">team-wide improvement</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">$0</div>
+                            <div class="result-label">Overhead Added</div>
+                            <div class="result-period">vs hiring in-house staff</div>
+                        </div>
+                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(255, 255, 255, 0.2);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem;">69x</div>
+                                <div style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">ROI on investment<br><span style="font-size: 0.85rem;">$276k earned for $4k/month invested</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width: 1200px; margin: 4rem auto; padding: 0 2rem;">
+            <div class="case-study-showcase">
+                <div class="case-study-left">
+                    <div class="case-study-header">
+                        <div class="case-study-avatar" style="background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);">JT</div>
+                        <div>
+                            <h3 class="case-study-name">James Thompson</h3>
+                            <p class="case-study-location">🏢 Denver, CO | Commercial Real Estate | Growing Agency</p>
+                        </div>
+                    </div>
+                    <div class="case-study-problem">
+                        <h4>The Problem</h4>
+                        <p>As the agency grew, operations became chaotic. Needed to scale without hiring expensive in-house staff. Quality was slipping.</p>
+                    </div>
+                    <div class="case-study-solution">
+                        <h4>The Solution</h4>
+                        <p><strong>Package:</strong> Elite Package ($7,000/month)</p>
+                        <ul>
+                            <li>Complete operations management</li>
+                            <li>Lead generation & follow-up</li>
+                            <li>Marketing strategy & execution</li>
+                            <li>Dedicated account manager</li>
+                        </ul>
+                    </div>
+                    <div class="case-study-testimonial">
+                        <p style="font-size: 1.1rem; line-height: 1.8; font-style: italic; color: var(--primary); margin-bottom: 1rem;">
+                            "We scaled from 3 agents to 8 agents without the operational overhead. OptiAgent literally scaled with us. Our close rate went up, client satisfaction improved, and we're making more money than ever."
+                        </p>
+                        <p style="font-weight: 600; color: var(--text-dark);">— James Thompson</p>
+                    </div>
+                </div>
+                <div class="case-study-right">
+                    <div class="case-study-results">
+                        <div class="result-item">
+                            <div class="result-number">5</div>
+                            <div class="result-label">New Agents Hired</div>
+                            <div class="result-period">scaled operations easily</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">$620K</div>
+                            <div class="result-label">Additional Commission</div>
+                            <div class="result-period">from agency growth</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">42%</div>
+                            <div class="result-label">Increase in Close Rate</div>
+                            <div class="result-period">better follow-up & management</div>
+                        </div>
+                        <div class="result-divider"></div>
+                        <div class="result-item">
+                            <div class="result-number">98%</div>
+                            <div class="result-label">Client Satisfaction</div>
+                            <div class="result-period">improved operations</div>
+                        </div>
+                        <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid rgba(255, 255, 255, 0.2);">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2.5rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem;">88x</div>
+                                <div style="color: rgba(255, 255, 255, 0.9); font-size: 0.95rem;">ROI on investment<br><span style="font-size: 0.85rem;">$620k earned for $84k invested (12 months)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-container">
+            <h2 class="section-title">About the Founder</h2>
+            <div class="about-content">
+                <div class="about-header">
+                    <div class="about-avatar">IA</div>
+                    <div class="about-info">
+                        <h3>Ismail Asim</h3>
+                        <p>Founder & CEO of OptiAgent. Real estate entrepreneur with deep industry expertise, digital operations management, and a passion for helping agents scale their businesses.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                    <h4 style="color: var(--primary); margin-bottom: 1.5rem; font-size: 1.1rem; font-weight: 700;">Background & Expertise</h4>
+                    <div class="credentials-grid">
+                        <div class="credential-item">
+                            <p>🎓 Education</p>
+                            <p>NYU Undergraduate | B.B.A. in Real Estate, Marketing & Analytics</p>
+                        </div>
+                        <div class="credential-item">
+                            <p>💼 Specialization</p>
+                            <p>Real Estate Operations & Business Automation</p>
+                        </div>
+                        <div class="credential-item">
+                            <p>🌍 Experience</p>
+                            <p>International Business & Outsourcing Strategy</p>
+                        </div>
+                        <div class="credential-item">
+                            <p>🚀 Focus</p>
+                            <p>Scaling Real Estate Agencies Efficiently</p>
+                        </div>
+                        <div class="credential-item">
+                            <p>💡 Innovation</p>
+                            <p>Digital Transformation for RE Teams</p>
+                        </div>
+                        <div class="credential-item">
+                            <p>🎯 Mission</p>
+                            <p>Free Agents from Admin Work</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-box">
+                    <p>
+                        <strong>What drives Ismail:</strong> Seeing real estate agents transform from being buried in administrative work to becoming true salespeople. The mission of OptiAgent is simple: give agents their time back, and watch their business explode. With a background in both real estate and international operations, Ismail built OptiAgent to solve the exact problem he saw in the industry.
+                    </p>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center; padding-top: 2rem; border-top: 2px solid var(--border-light);">
+                    <a href="https://www.linkedin.com/in/muhammed-ismail-asim-8523a328b" target="_blank" class="linkedin-button">
+                        🔗 Connect on LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta" id="contact">
+        <div class="section-container">
+            <h2>Ready to Increase Qualified Appointments?</h2>
+            <p>Let's build your lead acquisition and automation system. Schedule a free 15-minute consultation with Ismail.</p>
+            <a href="tel:7328224347" class="btn-primary" style="display: inline-block;">Call (732) 822-4347</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <a href="tel:7328224347">📞 (732) 822-4347</a>
+                <a href="mailto:contact@optiagent.com">📧 contact@optiagent.com</a>
+                <a href="https://www.linkedin.com/in/muhammed-ismail-asim-8523a328b" target="_blank">🔗 LinkedIn</a>
+            </div>
+            <div class="footer-copyright">
+                © 2024 OptiAgent. All rights reserved.
+            </div>
+            <div class="footer-founder">
+                Founded by Ismail Asim
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
